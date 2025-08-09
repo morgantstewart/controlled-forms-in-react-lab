@@ -8,15 +8,22 @@ export default function Bookshelf() {
 
   const [newBook, setNewBook] = useState({ title: '', author: '' });
 
+  // Updates form inputs
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setNewBook({ ...newBook, [name]: value });
+    setNewBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }));
   };
 
-
+  // Adds a new book to the list
   const handleSubmit = (event) => {
     event.preventDefault();
-    setBooks([...books, newBook]);
+
+    if (!newBook.title.trim() || !newBook.author.trim()) return;
+
+    setBooks((prevBooks) => [...prevBooks, newBook]);
     setNewBook({ title: '', author: '' });
   };
 
